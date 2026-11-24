@@ -1,6 +1,6 @@
 # 3b.CREATION FOR CHAT USING TCP SOCKETS
 ```
-DEVELOPED BY: THARANI RAMESHBABU        REG NO: 212225240170
+DEVELOPED BY: ASWINI D REG NO: 212225240015
 ```
 ## AIM
 To write a python program for creating Chat using TCP Sockets Links.
