@@ -1,7 +1,4 @@
 # 3b.CREATION FOR CHAT USING TCP SOCKETS
-```
-DEVELOPED BY: ASWINI D REG NO: 212225240015
-```
 ## AIM
 To write a python program for creating Chat using TCP Sockets Links.
 ## ALGORITHM:
@@ -11,32 +8,69 @@ To write a python program for creating Chat using TCP Sockets Links.
  server
 4. Send and receive the message using the send function in socket.
 ## PROGRAM
-```
-CLIENT SIDE:
+### server.py
+~~~
+import socket
 
-s=socket.socket() 
-s.connect(('localhost',8000)) 
-while True: 
-  msg=input("Client > ") 
-  s.send(msg.encode()) 
-  print("Server > ",s.recv(1024).decode())
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-SERVER SIDE:
+s.bind(('localhost', 8000))
+s.listen(1)
 
-import socket 
-s=socket.socket() 
-s.bind(('localhost',8000)) 
-s.listen(5) 
-c,addr=s.accept() 
-while True: 
-  ClientMessage=c.recv(1024).decode() 
-  print("Client > ",ClientMessage) 
-  msg=input("Server > ") 
-  c.send(msg.encode())
-```
+print("Server waiting for connection...")
+
+c, addr = s.accept()
+
+print("Client connected:", addr)
+
+while True:
+    msg = c.recv(1024).decode()
+
+    if msg.lower() == "exit":
+        print("Client disconnected")
+        break
+
+    print("Client:", msg)
+
+    reply = input("Server: ")
+    c.send(reply.encode())
+
+    if reply.lower() == "exit":
+        break
+
+c.close()
+s.close()
+~~~
+### client.py
+~~~
+import socket
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.connect(('localhost', 8000))
+
+print("Connected to server")
+
+while True:
+    msg = input("Client: ")
+
+    s.send(msg.encode())
+
+    if msg.lower() == "exit":
+        break
+
+    reply = s.recv(1024).decode()
+
+    if reply.lower() == "exit":
+        print("Server disconnected")
+        break
+
+    print("Server:", reply)
+
+s.close()
+~~~
 ## OUPUT
-<img width="696" height="769" alt="image" src="https://github.com/user-attachments/assets/333af8a0-339f-48f1-8547-f76523241289" />
-<img width="1073" height="966" alt="image" src="https://github.com/user-attachments/assets/1782306c-0830-49fa-9eba-0bf2b39d8d55" />
+<img width="1491" height="286" alt="Screenshot 2026-11-23 135223" src="https://github.com/user-attachments/assets/37469fa6-542d-45c9-9dff-cf47e1c02113" />
 
 ## RESULT
 Thus, the python program for creating Chat using TCP Sockets Links was successfully 
